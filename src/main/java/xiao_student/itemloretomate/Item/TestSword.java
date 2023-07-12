@@ -2,6 +2,7 @@ package xiao_student.itemloretomate.Item;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -17,10 +18,10 @@ public class TestSword {
         ItemMeta itemMeta = itemStack.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.RED + "==> <攻击力> : 20");
-        lore.add(ChatColor.RED + "==> <生命值> : 200");
-        lore.add(ChatColor.RED + "==> <暴击率> : 10%");
+        lore.add(ChatColor.RED + "==> <生命值> : 15");
+        lore.add(ChatColor.RED + "==> <暴击率> : 15%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 100%");
-        lore.add(ChatColor.RED + "==> <吸血> : 50%");
+        lore.add(ChatColor.RED + "==> <吸血> : 5%");
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
 

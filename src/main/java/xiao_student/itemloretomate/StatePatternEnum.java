@@ -8,6 +8,7 @@ public enum StatePatternEnum {
     CRIT(".*<暴击率> : [0-9]*%$"),
     CRITDAMAGE(".*<暴击伤害> : [0-9]*%$"),
     SUCKBLOOD(".*<吸血> : [0-9]*%$"),
+    DEFENSE(".*<防御力> : [0-9]*$"),
 
     ;
     private String pattern;

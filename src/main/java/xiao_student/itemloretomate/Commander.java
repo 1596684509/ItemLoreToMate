@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import xiao_student.itemloretomate.Item.TestSword;
+import xiao_student.itemloretomate.Item.*;
 
 public class Commander implements CommandExecutor {
 
@@ -72,6 +72,10 @@ public class Commander implements CommandExecutor {
         if(sender.isOp()) {
 
             ((Player) sender).getPlayer().getInventory().addItem(new TestSword().getItemStack());
+            ((Player) sender).getPlayer().getInventory().addItem(new TestHelmet().getItemStack());
+            ((Player) sender).getPlayer().getInventory().addItem(new TestChestoplate().getItemStack());
+            ((Player) sender).getPlayer().getInventory().addItem(new TestLeggings().getItemStack());
+            ((Player) sender).getPlayer().getInventory().addItem(new TestBoots().getItemStack());
 
         }else {
 
