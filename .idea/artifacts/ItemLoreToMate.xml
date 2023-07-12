@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ItemLoreToMate">
+    <output-path>$PROJECT_DIR$/../../../我的世界/我的世界服务器端/TestServer 1.16.5/plugins</output-path>
+    <root id="archive" name="ItemLoreToMate.jar">
+      <element id="module-output" name="ItemLoreToMate.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,9 @@
+name: ItemLoreToMate
+version: '1.0.0'
+main: xiao_student.itemloretomate.ItemLoreToMate
+api-version: '1.16'
+commands:
+  iltm:
+    description: "get help"
+    permission: "op"
+    permission-message: "you don't have permisssion"
