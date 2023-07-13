@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.ItemLoreToMate;
 import xiao_student.itemloretomate.PlayerState;
+import xiao_student.itemloretomate.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,18 +24,18 @@ public class OnAttack implements Listener {
 
         if(event.getDamager() instanceof Player) {
 
-            onPlayerDamageByMonster(event);
+            damageByMonster(event);
 
-        }else if(event.getDamager() instanceof Player) {
+        }else if(event.getEntity() instanceof Player){
 
-
+            damageByPlayer(event);
 
         }
 
 
     }
 
-    private void onPlayerDamageByMonster(EntityDamageByEntityEvent event) {
+    private void damageByMonster(EntityDamageByEntityEvent event) {
 
         PlayerState playerState = ItemLoreToMate.getPlayerStates().get(event.getDamager().getName());
 
@@ -50,17 +51,26 @@ public class OnAttack implements Listener {
     }
 
     //计算防御属性
-    private void monsterDamageByPlayer() {
+    private void damageByPlayer(EntityDamageByEntityEvent event) {
 
+        PlayerState playerState = ItemLoreToMate.getPlayerStates().get(event.getEntity().getName());
 
+        if(playerState != null && event.getEntity() instanceof LivingEntity) {
+
+            double defense = playerState.getDefense();
+            double damage = event.getDamage();
+            double reduceDamge = defense / damage;
+            double newDamge = damage - (damage * reduceDamge);
+            event.setDamage(newDamge);
+
+        }
 
     }
 
     private double onCrit(PlayerState playerState) {
 
-        Random random = new Random();
-        double critNum = random.nextInt(100)+1;
-        if(critNum <= playerState.getCrit()) {
+
+        if(Util.getEventBoolean(playerState.getCrit())) {
 
             return playerState.getDamage() * (playerState.getCritDamage() / 100);
 

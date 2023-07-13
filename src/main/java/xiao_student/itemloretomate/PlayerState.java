@@ -19,7 +19,7 @@ public class PlayerState{
     private double crit;
     private double critDamage = 100;
     private double suckBlood;
-    private int defense = 0;
+    private double defense = 0;
 
     /**
      * 遍历当前玩家的所有部位装备的lore
@@ -136,11 +136,11 @@ public class PlayerState{
         player.sendMessage(ChatColor.BOLD + "" + ChatColor.RED + "========[属性]========");
         player.sendMessage(ChatColor.GRAY + "=> 玩家: " + ChatColor.YELLOW + player.getName());
         player.sendMessage(ChatColor.GRAY + "=> 生命值: " + ChatColor.YELLOW + health);
+        player.sendMessage(ChatColor.GRAY + "=> 防御力: " + ChatColor.YELLOW + defense);
         player.sendMessage(ChatColor.GRAY + "=> 攻击力: " + ChatColor.YELLOW + damage);
         player.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
         player.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
         player.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
-        player.sendMessage(ChatColor.GRAY + "=> 防御力: " + ChatColor.YELLOW + defense);
 
     }
 
@@ -192,11 +192,11 @@ public class PlayerState{
         this.critDamage = critDamage;
     }
 
-    public void setDefense(int defense) {
+    public void setDefense(double defense) {
         this.defense = defense;
     }
 
-    public int getDefense() {
+    public double getDefense() {
         return defense;
     }
 }
