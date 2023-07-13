@@ -22,6 +22,7 @@ public class TestSword {
         lore.add(ChatColor.RED + "==> <暴击率> : 15%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 100%");
         lore.add(ChatColor.RED + "==> <吸血> : 5%");
+        lore.add(ChatColor.RED + "==> <攻击恢复> : 20");
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
 

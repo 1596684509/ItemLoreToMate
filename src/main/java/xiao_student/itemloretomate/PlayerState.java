@@ -140,8 +140,7 @@ public class PlayerState{
 
         PlayerState playerState = ItemLoreToMate.getPlayerStates().get(player.getName());
         player.setMaxHealth(playerState.getHealth());
-        double playerSpeed = player.getWalkSpeed();
-        double newPlayerSpeed = playerSpeed + (playerSpeed * (playerState.getSpeed() / 100));
+        double newPlayerSpeed = 0.2 + (0.2 * (playerState.getSpeed() / 100));
 
         if(newPlayerSpeed > 1) {
 

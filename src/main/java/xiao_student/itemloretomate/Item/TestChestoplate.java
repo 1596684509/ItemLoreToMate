@@ -24,6 +24,7 @@ public class TestChestoplate {
         lore.add(ChatColor.RED + "==> <暴击率> : 5%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 50%");
         lore.add(ChatColor.RED + "==> <吸血> : 4%");
+        lore.add(ChatColor.RED + "==> <生命恢复> : 3");
         itemMeta.setLore(lore);
         itemMeta.setAttributeModifiers(null);
         itemStack.setItemMeta(itemMeta);

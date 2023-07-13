@@ -18,15 +18,18 @@ public class HealEvent implements TimerEventAble{
     @Override
     public void onEvent() {
 
-        double heal = 10;
+        double heal = playerState.getHeal();
 
-        if((player.getHealth() + heal) >= player.getMaxHealth()) {
+        if((player.getHealth() + heal) > player.getMaxHealth()) {
 
             heal = player.getMaxHealth() - player.getHealth();
 
         }
+        if(heal > 0) {
 
-        player.setHealth(playerState.getHealth() + heal);
+            player.setHealth(player.getHealth() + heal);
+
+        }
 
     }
 

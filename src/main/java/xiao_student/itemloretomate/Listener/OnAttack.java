@@ -14,7 +14,7 @@ import xiao_student.itemloretomate.Util;
 
 public class OnAttack implements Listener {
 
-
+    private EventTimer healEventTimer;
     @EventHandler
     public void onAttack(EntityDamageByEntityEvent event) {
 
@@ -124,16 +124,22 @@ public class OnAttack implements Listener {
 
         if(playerState != null) {
 
-            EventTimer eventTimer = new EventTimer(new HealEvent(player));
-            eventTimer.setTimer(5);
+            if(healEventTimer == null) {
 
-            if(eventTimer.isTimerIsOver()) {
+                healEventTimer = new EventTimer(new HealEvent(player));
 
-                eventTimer.start();
+            }
+
+
+            healEventTimer.setTimer(5);
+
+            if(healEventTimer.isTimerIsOver()) {
+
+                healEventTimer.start();
 
             }else {
 
-                eventTimer.setTimer(5);
+                healEventTimer.setTimer(5);
 
             }
 
