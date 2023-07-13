@@ -6,7 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import xiao_student.itemloretomate.Item.*;
+
+import java.util.List;
 
 public class Commander implements CommandExecutor {
 
@@ -43,6 +46,11 @@ public class Commander implements CommandExecutor {
 
             case "damage":
                 ((Player) sender).damage(19);
+                break;
+
+            case "lore":
+                loreAble(args[1], args, sender);
+                break;
 
         }
 
@@ -82,6 +90,36 @@ public class Commander implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "你没有权限!");
 
         }
+
+    }
+
+    private void loreAble(String command, String[] args, CommandSender sender) {
+
+        if(!sender.isOp()) {
+
+            sender.sendMessage(ChatColor.RED + "你没有权限!");
+            return;
+
+        }
+
+        switch (command) {
+
+            case "add":
+                addItemLore(((Player) sender).getPlayer(), args[2]);
+                break;
+
+        }
+
+    }
+
+    private void addItemLore(Player plyaer, String addLore) {
+
+        ItemStack itemStack = plyaer.getInventory().getItemInMainHand();
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        List<String> lore = itemMeta.getLore();
+        lore.add(addLore);
+        itemMeta.setLore(lore);
+        itemStack.setItemMeta(itemMeta);
 
     }
 

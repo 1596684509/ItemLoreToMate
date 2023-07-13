@@ -1,6 +1,5 @@
 package xiao_student.itemloretomate.Listener;
 
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -8,13 +7,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.ItemLoreToMate;
+import xiao_student.itemloretomate.MyEvent.EventTimer;
+import xiao_student.itemloretomate.MyEvent.HealEvent;
 import xiao_student.itemloretomate.PlayerState;
 import xiao_student.itemloretomate.Util;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Random;
 
 public class OnAttack implements Listener {
 
@@ -44,6 +40,8 @@ public class OnAttack implements Listener {
             Player player = (Player) event.getDamager();
             event.setDamage(onCrit(playerState));
             player.setHealth(player.getHealth() + (attackSuckBlood(playerState, player, event.getDamage())));
+            player.setHealth(player.getHealth() + (attackHeal(playerState, player)));
+            heal(playerState, player);
             event.getDamager().sendMessage("你对" + event.getEntity().getName() + "造成了" + (int) event.getDamage() + "点伤害");
 
         }
@@ -62,6 +60,7 @@ public class OnAttack implements Listener {
             double reduceDamge = defense / damage;
             double newDamge = damage - (damage * reduceDamge);
             event.setDamage(newDamge);
+            heal(playerState, (Player) event.getEntity());
 
         }
 
@@ -98,6 +97,48 @@ public class OnAttack implements Listener {
         }
 
         return heal;
+
+    }
+
+    private double attackHeal(PlayerState playerState, Player player) {
+
+        double heal = playerState.getAttackHeal();
+
+        if((player.getHealth() + heal) >= player.getMaxHealth()) {
+
+            heal = player.getMaxHealth() - player.getHealth();
+
+        }
+
+        if(heal > 0) {
+
+            player.sendMessage(ChatColor.RED + "你通过攻击恢复了" + (int)heal + "点生命值");
+
+        }
+
+        return heal;
+
+    }
+
+    private void heal(PlayerState playerState, Player player) {
+
+        if(playerState != null) {
+
+            EventTimer eventTimer = new EventTimer(new HealEvent(player));
+            eventTimer.setTimer(5);
+
+            if(eventTimer.isTimerIsOver()) {
+
+                eventTimer.start();
+
+            }else {
+
+                eventTimer.setTimer(5);
+
+            }
+
+
+        }
 
     }
 

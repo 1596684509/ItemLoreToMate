@@ -19,8 +19,10 @@ public class PlayerState{
     private double crit;
     private double critDamage = 100;
     private double suckBlood;
-    private double defense = 0;
-    private double speed = 0;
+    private double defense;
+    private double speed;
+    private double attackHeal;
+    private double heal;
 
     /**
      * 遍历当前玩家的所有部位装备的lore
@@ -38,6 +40,8 @@ public class PlayerState{
         double nowSuckBlood = 0;
         int nowDefense = 0;
         double nowSpeed = 0;
+        double nowAttackHeal = 0;
+        double nowHeal = 0;
 
         PlayerInventory playerInventory = player.getInventory();
         for (EquipmentSlot value : EquipmentSlot.values()) {
@@ -72,7 +76,8 @@ public class PlayerState{
                             nowSuckBlood += loreToNumber(s, StatePatternEnum.SUCKBLOOD);
                             nowDefense += loreToNumber(s, StatePatternEnum.DEFENSE);
                             nowSpeed += loreToNumber(s, StatePatternEnum.SPEED);
-
+                            nowAttackHeal += loreToNumber(s, StatePatternEnum.ATTACKHEAL);
+                            nowHeal += loreToNumber(s, StatePatternEnum.HEAL);
 
                         }
 
@@ -92,6 +97,8 @@ public class PlayerState{
         suckBlood = nowSuckBlood;
         defense = nowDefense;
         speed = nowSpeed;
+        attackHeal = nowAttackHeal;
+        heal = nowHeal;
 
 
         savePlayerState();
@@ -159,6 +166,8 @@ public class PlayerState{
         player.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
         player.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
         player.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
+        player.sendMessage(ChatColor.GRAY + "=> 攻击恢复: " + ChatColor.YELLOW + damage);
+        player.sendMessage(ChatColor.GRAY + "=> 生命恢复: " + ChatColor.YELLOW + heal);
         player.sendMessage(ChatColor.GRAY + "=> 速度加成: " + ChatColor.YELLOW + speed + "%");
 
     }
@@ -225,5 +234,21 @@ public class PlayerState{
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public void setAttackHeal(double attackHeal) {
+        this.attackHeal = attackHeal;
+    }
+
+    public double getAttackHeal() {
+        return attackHeal;
+    }
+
+    public void setHeal(double heal) {
+        this.heal = heal;
+    }
+
+    public double getHeal() {
+        return heal;
     }
 }

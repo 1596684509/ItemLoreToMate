@@ -1,6 +1,8 @@
 package xiao_student.itemloretomate;
 
 
+import xiao_student.itemloretomate.MyEvent.HealEvent;
+
 public enum StatePatternEnum {
 
     DAMAGE(".*<攻击力> : [0-9]*$"),
@@ -10,6 +12,8 @@ public enum StatePatternEnum {
     SUCKBLOOD(".*<吸血> : [0-9]*%$"),
     DEFENSE(".*<防御力> : [0-9]*$"),
     SPEED(".*<速度加成> : [0-9]*%$"),
+    ATTACKHEAL(".*<攻击恢复> : [0-9]*$"),
+    HEAL(".*<生命恢复> : [0-9]*$")
     ;
     private String pattern;
 
@@ -20,4 +24,5 @@ public enum StatePatternEnum {
     public String getPattern() {
         return pattern;
     }
+
 }
