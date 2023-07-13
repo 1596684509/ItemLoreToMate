@@ -24,6 +24,7 @@ public class TestBoots {
         lore.add(ChatColor.RED + "==> <暴击率> : 7%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 50%");
         lore.add(ChatColor.RED + "==> <吸血> : 3%");
+        lore.add(ChatColor.RED + "==> <速度加成> : 10%");
         itemMeta.setLore(lore);
         itemMeta.setAttributeModifiers(null);
         itemStack.setItemMeta(itemMeta);

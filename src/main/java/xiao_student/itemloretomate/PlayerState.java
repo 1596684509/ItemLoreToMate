@@ -20,6 +20,7 @@ public class PlayerState{
     private double critDamage = 100;
     private double suckBlood;
     private double defense = 0;
+    private double speed = 0;
 
     /**
      * 遍历当前玩家的所有部位装备的lore
@@ -36,6 +37,7 @@ public class PlayerState{
         double nowCritDamage = 100;
         double nowSuckBlood = 0;
         int nowDefense = 0;
+        double nowSpeed = 0;
 
         PlayerInventory playerInventory = player.getInventory();
         for (EquipmentSlot value : EquipmentSlot.values()) {
@@ -69,6 +71,7 @@ public class PlayerState{
                             nowCritDamage += loreToNumber(s, StatePatternEnum.CRITDAMAGE);
                             nowSuckBlood += loreToNumber(s, StatePatternEnum.SUCKBLOOD);
                             nowDefense += loreToNumber(s, StatePatternEnum.DEFENSE);
+                            nowSpeed += loreToNumber(s, StatePatternEnum.SPEED);
 
 
                         }
@@ -88,6 +91,7 @@ public class PlayerState{
         critDamage = nowCritDamage;
         suckBlood = nowSuckBlood;
         defense = nowDefense;
+        speed = nowSpeed;
 
 
         savePlayerState();
@@ -127,8 +131,22 @@ public class PlayerState{
 
     private void setPlayerStateFromLore() {
 
-        PlayerState newPlayerState = ItemLoreToMate.getPlayerStates().get(player.getName());
-        player.setMaxHealth(newPlayerState.getHealth());
+        PlayerState playerState = ItemLoreToMate.getPlayerStates().get(player.getName());
+        player.setMaxHealth(playerState.getHealth());
+        double playerSpeed = player.getWalkSpeed();
+        double newPlayerSpeed = playerSpeed + (playerSpeed * (playerState.getSpeed() / 100));
+
+        if(newPlayerSpeed > 1) {
+
+            newPlayerSpeed = 1;
+
+        }else if(newPlayerSpeed < -1) {
+
+            newPlayerSpeed = -1;
+
+        }
+
+        player.setWalkSpeed((float) newPlayerSpeed);
 
     }
 
@@ -141,6 +159,7 @@ public class PlayerState{
         player.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
         player.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
         player.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
+        player.sendMessage(ChatColor.GRAY + "=> 速度加成: " + ChatColor.YELLOW + speed + "%");
 
     }
 
@@ -198,5 +217,13 @@ public class PlayerState{
 
     public double getDefense() {
         return defense;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 }
