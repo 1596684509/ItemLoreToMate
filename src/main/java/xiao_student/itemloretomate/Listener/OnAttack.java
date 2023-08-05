@@ -9,12 +9,30 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.ItemLoreToMate;
 import xiao_student.itemloretomate.MyEvent.EventTimer;
 import xiao_student.itemloretomate.MyEvent.HealEvent;
+import xiao_student.itemloretomate.MyListener.MyListener;
+import xiao_student.itemloretomate.MyListener.OnCritEvent;
 import xiao_student.itemloretomate.PlayerState;
 import xiao_student.itemloretomate.Util;
 
+import java.util.ArrayList;
+
 public class OnAttack implements Listener {
 
+    private ArrayList<MyListener> onAttackListeners = new ArrayList<>();
+
     private EventTimer healEventTimer;
+
+    public OnAttack() {
+
+        registerListener();
+
+    }
+
+    private void registerListener() {
+
+        onAttackListeners.add(new OnCritEvent());
+
+    }
     @EventHandler
     public void onAttack(EntityDamageByEntityEvent event) {
 
@@ -33,12 +51,18 @@ public class OnAttack implements Listener {
 
     private void damageByMonster(EntityDamageByEntityEvent event) {
 
+        for (MyListener myEvent : onAttackListeners) {
+
+            myEvent.setEvent(event);
+            myEvent.run();
+
+        }
+
         PlayerState playerState = ItemLoreToMate.getPlayerStates().get(event.getDamager().getName());
 
         if(playerState != null && event.getEntity() instanceof LivingEntity) {
 
             Player player = (Player) event.getDamager();
-            event.setDamage(onCrit(playerState));
             player.setHealth(player.getHealth() + (attackSuckBlood(playerState, player, event.getDamage())));
             player.setHealth(player.getHealth() + (attackHeal(playerState, player)));
             heal(playerState, player);
@@ -66,20 +90,7 @@ public class OnAttack implements Listener {
 
     }
 
-    private double onCrit(PlayerState playerState) {
 
-
-        if(Util.getEventBoolean(playerState.getCrit())) {
-
-            return playerState.getDamage() * (playerState.getCritDamage() / 100);
-
-        }else {
-
-            return playerState.getDamage();
-
-        }
-
-    }
 
     private double attackSuckBlood(PlayerState playerState, Player player, double damage) {
 

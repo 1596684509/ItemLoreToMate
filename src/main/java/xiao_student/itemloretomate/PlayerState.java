@@ -5,6 +5,7 @@ import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
+import xiao_student.itemloretomate.MyListener.OnCritEvent;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -42,6 +43,7 @@ public class PlayerState{
         double nowSpeed = 0;
         double nowAttackHeal = 0;
         double nowHeal = 0;
+
 
         PlayerInventory playerInventory = player.getInventory();
         for (EquipmentSlot value : EquipmentSlot.values()) {
