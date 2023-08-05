@@ -1,8 +1,6 @@
 package xiao_student.itemloretomate;
 
 
-import xiao_student.itemloretomate.MyEvent.HealEvent;
-
 public enum StatePatternEnum {
 
     DAMAGE(".*<攻击力> : [0-9]*$"),
