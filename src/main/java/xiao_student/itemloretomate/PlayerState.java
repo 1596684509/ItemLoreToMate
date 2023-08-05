@@ -1,13 +1,10 @@
 package xiao_student.itemloretomate;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,6 +39,7 @@ public class PlayerState{
         double nowSpeed = 0;
         double nowAttackHeal = 0;
         double nowHeal = 0;
+
 
         PlayerInventory playerInventory = player.getInventory();
         for (EquipmentSlot value : EquipmentSlot.values()) {
