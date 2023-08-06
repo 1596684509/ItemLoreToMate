@@ -14,6 +14,7 @@ public abstract class Item {
     private List<String> lore;
     private ItemMeta itemMeta;
 
+
     public Item(ItemStack itemStack, double attackDamage, double health) {
         this.itemStack = itemStack;
         this.attackDamage = attackDamage;

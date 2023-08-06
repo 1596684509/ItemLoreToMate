@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class PlayerState{
     private Player player;
     private double damage;
+    private double apDamage;
     private double health = 20;
     private double crit;
     private double critDamage = 100;
@@ -31,6 +32,7 @@ public class PlayerState{
     public void setPlayerState(int mainHandSlot) {
 
         double nowDamage = 0;
+        double nowApDamage = 0;
         double nowHeath = 20;
         double nowCrit = 0;
         double nowCritDamage = 100;
@@ -68,6 +70,7 @@ public class PlayerState{
                         for (String s : list) {
 
                             nowDamage += loreToNumber(s, StatePatternEnum.DAMAGE);
+                            nowApDamage += loreToNumber(s, StatePatternEnum.APDAMAGE);
                             nowHeath += loreToNumber(s, StatePatternEnum.HEALTH);
                             nowCrit += loreToNumber(s, StatePatternEnum.CRIT);
                             nowCritDamage += loreToNumber(s, StatePatternEnum.CRITDAMAGE);
@@ -89,6 +92,7 @@ public class PlayerState{
 
 
         damage = nowDamage;
+        apDamage = nowApDamage;
         health = nowHeath;
         crit = nowCrit;
         critDamage = nowCritDamage;
@@ -130,7 +134,6 @@ public class PlayerState{
     private void savePlayerState() {
 
         ItemLoreToMate.addPlayerStates(player.getName(), this);
-        player.sendMessage("数据保存成功");
 
     }
 
@@ -160,6 +163,7 @@ public class PlayerState{
         player.sendMessage(ChatColor.GRAY + "=> 生命值: " + ChatColor.YELLOW + health);
         player.sendMessage(ChatColor.GRAY + "=> 防御力: " + ChatColor.YELLOW + defense);
         player.sendMessage(ChatColor.GRAY + "=> 攻击力: " + ChatColor.YELLOW + damage);
+        player.sendMessage(ChatColor.GRAY + "=> 法术强度: " + ChatColor.YELLOW + apDamage);
         player.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
         player.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
         player.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
@@ -247,5 +251,13 @@ public class PlayerState{
 
     public double getHeal() {
         return heal;
+    }
+
+    public void setApDamage(double apDamage) {
+        this.apDamage = apDamage;
+    }
+
+    public double getApDamage() {
+        return apDamage;
     }
 }

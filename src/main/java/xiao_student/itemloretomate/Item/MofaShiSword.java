@@ -9,11 +9,11 @@ import xiao_student.itemloretomate.Skill.RightClickSkill.TextSkill;
 
 import java.util.ArrayList;
 
-public class TestSword {
+public class MofaShiSword {
 
     private ItemStack itemStack;
 
-    public TestSword() {
+    public MofaShiSword() {
 
         itemStack = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta itemMeta = itemStack.getItemMeta();
@@ -24,7 +24,8 @@ public class TestSword {
         lore.add(ChatColor.RED + "==> <暴击伤害> : 100%");
         lore.add(ChatColor.RED + "==> <吸血> : 5%");
         lore.add(ChatColor.RED + "==> <攻击恢复> : 20");
-        lore.add(ChatColor.YELLOW + "技能： " + TextSkill.SKILL_NAME);
+        lore.add(ChatColor.YELLOW + "技能： " + NaShiZhiHun.SKILL_NAME);
+        lore.add(ChatColor.YELLOW + "每次攻击造成自身法强 35% 的额外伤害");
         itemMeta.setUnbreakable(true);
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
@@ -34,6 +35,5 @@ public class TestSword {
     public ItemStack getItemStack() {
         return itemStack;
     }
-
 
 }

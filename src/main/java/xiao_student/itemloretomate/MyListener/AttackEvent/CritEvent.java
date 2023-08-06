@@ -5,7 +5,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.MyListener.MyListener;
 import xiao_student.itemloretomate.MyListener.MyListenerClass;
-import xiao_student.itemloretomate.Util;
+import xiao_student.itemloretomate.Util.Tool;
 
 public class CritEvent extends MyListenerClass implements MyListener {
 
@@ -24,7 +24,7 @@ public class CritEvent extends MyListenerClass implements MyListener {
 
         double damage;
 
-        if (Util.getEventBoolean(playerState.getCrit())) {
+        if (Tool.getEventBoolean(playerState.getCrit())) {
 
             damage = playerState.getDamage() * (playerState.getCritDamage() / 100);
             entityDamageByEntityEvent.setDamage(damage);

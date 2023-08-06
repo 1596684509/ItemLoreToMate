@@ -25,7 +25,7 @@ public class TestHelmet {
         lore.add(ChatColor.RED + "==> <暴击伤害> : 35%");
         lore.add(ChatColor.RED + "==> <吸血> : 2%");
         itemMeta.setLore(lore);
-        itemMeta.setAttributeModifiers(null);
+        itemMeta.setUnbreakable(true);
         itemStack.setItemMeta(itemMeta);
 
 

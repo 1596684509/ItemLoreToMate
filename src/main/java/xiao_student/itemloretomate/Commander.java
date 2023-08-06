@@ -45,7 +45,7 @@ public class Commander implements CommandExecutor {
                 break;
 
             case "damage":
-                ((Player) sender).damage(19);
+                ((Player) sender).setHealth(1);
                 break;
 
             case "lore":
@@ -84,6 +84,7 @@ public class Commander implements CommandExecutor {
             ((Player) sender).getPlayer().getInventory().addItem(new TestChestoplate().getItemStack());
             ((Player) sender).getPlayer().getInventory().addItem(new TestLeggings().getItemStack());
             ((Player) sender).getPlayer().getInventory().addItem(new TestBoots().getItemStack());
+            ((Player) sender).getPlayer().getInventory().addItem(new MofaShiSword().getItemStack());
 
         }else {
 

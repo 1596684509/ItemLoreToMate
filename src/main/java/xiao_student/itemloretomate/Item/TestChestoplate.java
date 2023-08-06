@@ -26,7 +26,7 @@ public class TestChestoplate {
         lore.add(ChatColor.RED + "==> <吸血> : 4%");
         lore.add(ChatColor.RED + "==> <生命恢复> : 3");
         itemMeta.setLore(lore);
-        itemMeta.setAttributeModifiers(null);
+        itemMeta.setUnbreakable(true);
         itemStack.setItemMeta(itemMeta);
 
 

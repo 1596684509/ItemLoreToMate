@@ -24,7 +24,7 @@ public class TestLeggings {
         lore.add(ChatColor.RED + "==> <暴击率> : 7%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 40%");
         lore.add(ChatColor.RED + "==> <吸血> : 3%");
-        itemMeta.setAttributeModifiers(null);
+        itemMeta.setUnbreakable(true);
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
 

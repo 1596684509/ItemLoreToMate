@@ -27,6 +27,7 @@ public final class ItemLoreToMate extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnPlayerSwapHandItems(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerItemHeld(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new OnRightClick(), this);
         this.getCommand("iltm").setExecutor(new Commander());
 
     }

@@ -12,7 +12,7 @@ public class MyListenerClass {
 
     protected EntityDamageByEntityEvent entityDamageByEntityEvent;
 
-    public void setEntityDamageByEntityEvent(EntityDamageByEntityEvent entityDamageByEntityEvent) {
+    protected void setEntityDamageByEntityEvent(EntityDamageByEntityEvent entityDamageByEntityEvent) {
         this.entityDamageByEntityEvent = entityDamageByEntityEvent;
         setPlayer((Player) entityDamageByEntityEvent.getDamager());
         setPlayerState();

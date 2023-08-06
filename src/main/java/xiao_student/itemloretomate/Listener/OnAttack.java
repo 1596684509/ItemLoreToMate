@@ -5,29 +5,36 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.checkerframework.checker.units.qual.A;
 import xiao_student.itemloretomate.ItemLoreToMate;
-import xiao_student.itemloretomate.MyEvent.EventTimer;
 import xiao_student.itemloretomate.MyListener.AttackEvent.AttackHeal;
 import xiao_student.itemloretomate.MyListener.AttackEvent.HealEvent;
 import xiao_student.itemloretomate.MyListener.AttackEvent.SuckBloodEvent;
 import xiao_student.itemloretomate.MyListener.MyListener;
 import xiao_student.itemloretomate.MyListener.AttackEvent.CritEvent;
 import xiao_student.itemloretomate.PlayerState;
+import xiao_student.itemloretomate.Skill.AttackEffect.NaShiZhiHun;
+import xiao_student.itemloretomate.Skill.Skillable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class OnAttack implements Listener {
 
     private ArrayList<MyListener> publicListeners = new ArrayList<>();
 
     private ArrayList<MyListener> onAttackListeners = new ArrayList<>();
+    private ArrayList<Skillable> attackEffect = new ArrayList<>();
 
     public OnAttack() {
 
         registerPublicListener();
         registerAttackListener();
+        registerAttackEffect();
+
+    }
+
+    private void registerAttackEffect() {
+
+        attackEffect.add(new NaShiZhiHun());
 
     }
 
@@ -46,7 +53,6 @@ public class OnAttack implements Listener {
     }
     @EventHandler
     public void onAttack(EntityDamageByEntityEvent event) {
-
 
         if(event.getDamager() instanceof Player) {
 
@@ -70,11 +76,22 @@ public class OnAttack implements Listener {
 
         }
 
-
         for (MyListener myEvent : onAttackListeners) {
 
             myEvent.setEvent(event);
             myEvent.run();
+
+        }
+
+        for (Skillable skillable : attackEffect) {
+
+            skillable.setEvent(event);
+
+            if(skillable.equal()) {
+
+                skillable.run();
+
+            }
 
         }
 

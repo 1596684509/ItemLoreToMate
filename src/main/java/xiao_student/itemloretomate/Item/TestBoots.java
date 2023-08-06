@@ -20,13 +20,14 @@ public class TestBoots {
         List<String> lore = new ArrayList<>();
 
         lore.add(ChatColor.RED + "==> <攻击力> : 10");
+        lore.add(ChatColor.BLUE + "==> <法术强度> : 1000");
         lore.add(ChatColor.RED + "==> <生命值> : 5");
         lore.add(ChatColor.RED + "==> <暴击率> : 7%");
         lore.add(ChatColor.RED + "==> <暴击伤害> : 50%");
         lore.add(ChatColor.RED + "==> <吸血> : 3%");
         lore.add(ChatColor.RED + "==> <速度加成> : 50%");
         itemMeta.setLore(lore);
-        itemMeta.setAttributeModifiers(null);
+        itemMeta.setUnbreakable(true);
         itemStack.setItemMeta(itemMeta);
 
 
