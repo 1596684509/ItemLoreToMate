@@ -1,16 +1,15 @@
 package xiao_student.itemloretomate.Listener;
 
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.ItemLoreToMate;
-import xiao_student.itemloretomate.MyListener.AttackEvent.AttackHeal;
-import xiao_student.itemloretomate.MyListener.AttackEvent.HealEvent;
-import xiao_student.itemloretomate.MyListener.AttackEvent.SuckBloodEvent;
-import xiao_student.itemloretomate.MyListener.MyListener;
-import xiao_student.itemloretomate.MyListener.AttackEvent.CritEvent;
+import xiao_student.itemloretomate.MyEvent.AttackEvent.AttackHeal;
+import xiao_student.itemloretomate.MyEvent.AttackEvent.HealEvent;
+import xiao_student.itemloretomate.MyEvent.AttackEvent.SuckBloodEvent;
+import xiao_student.itemloretomate.MyEvent.MyEvent;
+import xiao_student.itemloretomate.MyEvent.AttackEvent.CritEvent;
 import xiao_student.itemloretomate.PlayerState;
 import xiao_student.itemloretomate.Skill.AttackEffect.NaShiZhiHun;
 import xiao_student.itemloretomate.Skill.Skillable;
@@ -19,9 +18,9 @@ import java.util.ArrayList;
 
 public class OnAttack implements Listener {
 
-    private ArrayList<MyListener> publicListeners = new ArrayList<>();
+    private ArrayList<MyEvent> publicListeners = new ArrayList<>();
 
-    private ArrayList<MyListener> onAttackListeners = new ArrayList<>();
+    private ArrayList<MyEvent> onAttackListeners = new ArrayList<>();
     private ArrayList<Skillable> attackEffect = new ArrayList<>();
 
     public OnAttack() {
@@ -69,14 +68,14 @@ public class OnAttack implements Listener {
 
     private void damageByMonster(EntityDamageByEntityEvent event) {
 
-        for (MyListener publicEvent : publicListeners) {
+        for (MyEvent publicEvent : publicListeners) {
 
             publicEvent.setEvent(event);
             publicEvent.run();
 
         }
 
-        for (MyListener myEvent : onAttackListeners) {
+        for (MyEvent myEvent : onAttackListeners) {
 
             myEvent.setEvent(event);
             myEvent.run();
@@ -102,16 +101,11 @@ public class OnAttack implements Listener {
 
         PlayerState playerState = ItemLoreToMate.getPlayerStates().get(event.getEntity().getName());
 
-        if(playerState != null && event.getEntity() instanceof LivingEntity) {
-
-            double defense = playerState.getDefense();
-            double damage = event.getDamage();
-            double reduceDamge = defense / damage;
-            double newDamge = damage - (damage * reduceDamge);
-            event.setDamage(newDamge);
-
-
-        }
+        double defense = playerState.getDefense();
+        double damage = event.getDamage();
+        double reduceDamge = defense / damage;
+        double newDamge = damage - (damage * reduceDamge);
+        event.setDamage(newDamge);
 
     }
 

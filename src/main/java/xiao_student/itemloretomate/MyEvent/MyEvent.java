@@ -1,8 +1,8 @@
-package xiao_student.itemloretomate.MyListener;
+package xiao_student.itemloretomate.MyEvent;
 
 import org.bukkit.event.Event;
 
-public interface MyListener {
+public interface MyEvent {
 
     void setEvent(Event event);
     void run();

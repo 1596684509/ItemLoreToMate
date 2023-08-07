@@ -1,11 +1,11 @@
-package xiao_student.itemloretomate.MyListener;
+package xiao_student.itemloretomate.MyEvent;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.ItemLoreToMate;
 import xiao_student.itemloretomate.PlayerState;
 
-public class MyListenerClass {
+public class MyEventClass {
 
     protected Player player;
     protected PlayerState playerState;
@@ -26,7 +26,7 @@ public class MyListenerClass {
         this.player = player;
     }
 
-    public MyListenerClass getMyListener() {
+    public MyEventClass getMyListener() {
 
         return this;
 

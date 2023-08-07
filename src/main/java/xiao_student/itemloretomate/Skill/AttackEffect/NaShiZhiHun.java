@@ -18,7 +18,6 @@ public class NaShiZhiHun extends Skill implements Skillable {
     @Override
     public void run() {
 
-//        double oldDamage = entityDamageByEntityEvent.getDamage();
         double plusDamage = playerState.getApDamage() * 0.35;
         LivingEntity target = (LivingEntity) entityDamageByEntityEvent.getEntity();
         target.damage(plusDamage);

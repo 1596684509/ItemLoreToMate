@@ -1,13 +1,13 @@
-package xiao_student.itemloretomate.MyListener.AttackEvent;
+package xiao_student.itemloretomate.MyEvent.AttackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import xiao_student.itemloretomate.MyListener.MyListener;
-import xiao_student.itemloretomate.MyListener.MyListenerClass;
+import xiao_student.itemloretomate.MyEvent.MyEvent;
+import xiao_student.itemloretomate.MyEvent.MyEventClass;
 import xiao_student.itemloretomate.Util.Tool;
 
-public class CritEvent extends MyListenerClass implements MyListener {
+public class CritEvent extends MyEventClass implements MyEvent {
 
     private boolean isCrit = false;
 

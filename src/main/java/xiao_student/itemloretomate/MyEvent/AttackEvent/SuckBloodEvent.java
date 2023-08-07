@@ -1,12 +1,13 @@
-package xiao_student.itemloretomate.MyListener.AttackEvent;
+package xiao_student.itemloretomate.MyEvent.AttackEvent;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import xiao_student.itemloretomate.MyListener.MyListener;
-import xiao_student.itemloretomate.MyListener.MyListenerClass;
+import xiao_student.itemloretomate.MyEvent.MyEvent;
+import xiao_student.itemloretomate.MyEvent.MyEventClass;
 
-public class AttackHeal extends MyListenerClass implements MyListener {
+public class SuckBloodEvent extends MyEventClass implements MyEvent {
+
 
     @Override
     public void setEvent(Event event) {
@@ -18,8 +19,10 @@ public class AttackHeal extends MyListenerClass implements MyListener {
     @Override
     public void run() {
 
-        double heal = playerState.getAttackHeal();
 
+        double damage = entityDamageByEntityEvent.getDamage();
+
+        double heal = damage * (playerState.getSuckBlood() / 100);
         if((player.getHealth() + heal) >= player.getMaxHealth()) {
 
             heal = player.getMaxHealth() - player.getHealth();
@@ -30,9 +33,11 @@ public class AttackHeal extends MyListenerClass implements MyListener {
 
         if(heal > 0) {
 
-            player.sendMessage(ChatColor.RED + "你通过攻击恢复了" + (int)heal + "点生命值");
+            player.sendMessage(ChatColor.RED + "你通过吸血回复了" + (int)heal + "点生命值");
 
         }
 
     }
+
+
 }
