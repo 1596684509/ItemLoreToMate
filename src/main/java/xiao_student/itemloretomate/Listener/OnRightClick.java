@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import xiao_student.itemloretomate.Skill.CDable;
 import xiao_student.itemloretomate.Skill.Skillable;
-import xiao_student.itemloretomate.Skill.RightClickSkill.TextSkill;
+import xiao_student.itemloretomate.Skill.RightClickSkill.TestSkill;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class OnRightClick implements Listener {
 
     private void registerSkill() {
 
-        skills.add(new TextSkill());
+        skills.add(new TestSkill());
 
     }
 
@@ -46,7 +46,7 @@ public class OnRightClick implements Listener {
 
                     }
 
-                    //创建CD监视器
+                    //CD监视を作る
                     if(skill instanceof CDable) {
 
                         ((CDable) skill).createCdListener();
@@ -54,18 +54,18 @@ public class OnRightClick implements Listener {
                     }
 
                     //CD　判断
-                    if(!skill.getCdListeners().get(skill.getPlayer().getName()).isTimerIsOver()) {
+                    if(skill.getCdListeners() != null || !skill.getCdListeners().get(skill.getPlayer().getUniqueId()).isTimerIsOver()) {
 
                         skill.getPlayer().sendMessage(ChatColor.RED + "[警告]主手武器技能CD还剩 " + skill.getTimerTool().getTimer() + " 秒");
-                        return;
+                        continue;
 
                     }
 
                     skill.run();
                     skill.getTimerTool().start();
 
-                    //释放内存
-                    if(skill.getCdListeners().get(skill.getPlayer().getName()).isTimerIsOver()) {
+                    //メモリー解放
+                    if(skill.getCdListeners() != null || skill.getCdListeners().get(skill.getPlayer().getUniqueId()).isTimerIsOver()) {
 
                         if(skill instanceof CDable) {
 

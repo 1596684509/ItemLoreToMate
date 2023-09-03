@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import xiao_student.itemloretomate.Skill.AttackEffect.NaShiZhiHun;
-import xiao_student.itemloretomate.Skill.RightClickSkill.TextSkill;
 
 import java.util.ArrayList;
 

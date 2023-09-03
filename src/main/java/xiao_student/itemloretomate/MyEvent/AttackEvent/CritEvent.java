@@ -5,11 +5,15 @@ import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import xiao_student.itemloretomate.MyEvent.MyEvent;
 import xiao_student.itemloretomate.MyEvent.MyEventClass;
+import xiao_student.itemloretomate.MyListener.CirtListener;
+import xiao_student.itemloretomate.MyListener.MyListener;
+import xiao_student.itemloretomate.MyListener.MyListenerClass;
 import xiao_student.itemloretomate.Util.Tool;
 
 public class CritEvent extends MyEventClass implements MyEvent {
 
     private boolean isCrit = false;
+    private CirtListener cirtListener;
 
     @Override
     public void setEvent(Event event) {
@@ -18,26 +22,39 @@ public class CritEvent extends MyEventClass implements MyEvent {
 
     }
 
+    @Override
+    public void registerListener(MyListener myListener) {
+        super.registerListener(myListener);
+    }
 
     @Override
     public void run() {
 
+        cirtListener = (CirtListener) getMyListener();
+
         double damage;
 
-        if (Tool.getEventBoolean(playerState.getCrit())) {
+        if (Tool.getEventBoolean(state.getCrit())) {
 
-            damage = playerState.getDamage() * (playerState.getCritDamage() / 100);
-            entityDamageByEntityEvent.setDamage(damage);
-            isCrit = true;
+            cirtListener.onStart();
 
+            if(cirtListener.onRun()) {
 
-            playerState.getPlayer().sendMessage(ChatColor.RED + "你对" + entityDamageByEntityEvent.getEntity().getName() + "造成了" + damage + "点暴击伤害");
+                damage = state.getDamage() * (state.getCritDamage() / 100);
+                entityDamageByEntityEvent.setDamage(damage);
+                isCrit = true;
+
+                state.getLivingEntity().sendMessage(ChatColor.RED + "你对" + entityDamageByEntityEvent.getEntity().getName() + "造成了" + damage + "点暴击伤害");
+
+            }
+
+            cirtListener.onEnd();
 
         } else {
 
-            damage = playerState.getDamage();
+            damage = state.getDamage();
             entityDamageByEntityEvent.setDamage(damage);
-            playerState.getPlayer().sendMessage(ChatColor.RED + "你对" + entityDamageByEntityEvent.getEntity().getName() + "造成了" + damage + "点伤害");
+            state.getLivingEntity().sendMessage(ChatColor.RED + "你对" + entityDamageByEntityEvent.getEntity().getName() + "造成了" + damage + "点伤害");
             isCrit = false;
 
         }

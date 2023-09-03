@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -59,9 +60,9 @@ public class Commander implements CommandExecutor {
 
     private void sendPlayerState(CommandSender sender) {
 
-        if(ItemLoreToMate.getPlayerStates().get(sender.getName()) != null) {
+        if(ItemLoreToMate.getPlayerStates().get(sender.getServer().getPlayerUniqueId(sender.getName())) != null) {
 
-            ItemLoreToMate.getPlayerStates().get(sender.getName()).infoState();
+            ItemLoreToMate.getPlayerStates().get(sender.getServer().getPlayerUniqueId(sender.getName())).infoState();
 
         }
 

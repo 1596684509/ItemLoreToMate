@@ -4,8 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import xiao_student.itemloretomate.Skill.AttackEffect.NaShiZhiHun;
-import xiao_student.itemloretomate.Skill.RightClickSkill.TextSkill;
+import xiao_student.itemloretomate.Skill.RightClickSkill.TestSkill;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class TestSword {
         lore.add(ChatColor.RED + "==> <暴击伤害> : 100%");
         lore.add(ChatColor.RED + "==> <吸血> : 5%");
         lore.add(ChatColor.RED + "==> <攻击恢复> : 20");
-        lore.add(ChatColor.YELLOW + "技能： " + TextSkill.SKILL_NAME);
+        lore.add(ChatColor.YELLOW + "技能： " + TestSkill.SKILL_NAME);
         itemMeta.setUnbreakable(true);
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);

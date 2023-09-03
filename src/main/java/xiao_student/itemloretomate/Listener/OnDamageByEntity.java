@@ -10,20 +10,20 @@ import xiao_student.itemloretomate.MyEvent.AttackEvent.HealEvent;
 import xiao_student.itemloretomate.MyEvent.AttackEvent.SuckBloodEvent;
 import xiao_student.itemloretomate.MyEvent.MyEvent;
 import xiao_student.itemloretomate.MyEvent.AttackEvent.CritEvent;
-import xiao_student.itemloretomate.PlayerState;
+import xiao_student.itemloretomate.State;
 import xiao_student.itemloretomate.Skill.AttackEffect.NaShiZhiHun;
 import xiao_student.itemloretomate.Skill.Skillable;
 
 import java.util.ArrayList;
 
-public class OnAttack implements Listener {
+public class OnDamageByEntity implements Listener {
 
     private ArrayList<MyEvent> publicListeners = new ArrayList<>();
 
     private ArrayList<MyEvent> onAttackListeners = new ArrayList<>();
     private ArrayList<Skillable> attackEffect = new ArrayList<>();
 
-    public OnAttack() {
+    public OnDamageByEntity() {
 
         registerPublicListener();
         registerAttackListener();
@@ -99,9 +99,9 @@ public class OnAttack implements Listener {
     //计算防御属性
     private void damageByPlayer(EntityDamageByEntityEvent event) {
 
-        PlayerState playerState = ItemLoreToMate.getPlayerStates().get(event.getEntity().getName());
+        State state = ItemLoreToMate.getPlayerStates().get(event.getEntity().getUniqueId());
 
-        double defense = playerState.getDefense();
+        double defense = state.getDefense();
         double damage = event.getDamage();
         double reduceDamge = defense / damage;
         double newDamge = damage - (damage * reduceDamge);

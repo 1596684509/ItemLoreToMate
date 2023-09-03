@@ -1,6 +1,7 @@
 package xiao_student.itemloretomate;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -9,8 +10,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PlayerState{
-    private Player player;
+public class State {
+    private LivingEntity livingEntity;
     private double damage;
     private double apDamage;
     private double health = 20;
@@ -27,9 +28,8 @@ public class PlayerState{
      * 检测是否拥有指定字符串
      * 获取数值
      * 保存到 ItemLoreToMate 类 的 HashMap
-     * @param mainHandSlot 主手的下标
      */
-    public void setPlayerState(int mainHandSlot) {
+    public void setPlayerState() {
 
         double nowDamage = 0;
         double nowApDamage = 0;
@@ -42,20 +42,22 @@ public class PlayerState{
         double nowAttackHeal = 0;
         double nowHeal = 0;
 
-
-        PlayerInventory playerInventory = player.getInventory();
+        //PlayerInventory playerInventory = livingEntity.getInventory();
         for (EquipmentSlot value : EquipmentSlot.values()) {
 
             ItemStack itemStack;
-            if(value == EquipmentSlot.HAND) {
 
-                itemStack = playerInventory.getItem(mainHandSlot);
+            itemStack = livingEntity.getEquipment().getItem(value);
 
-            }else {
-
-                itemStack = playerInventory.getItem(value);
-
-            }
+//            if(value == EquipmentSlot.HAND) {
+//
+//                itemStack = playerInventory.getItem(mainHandSlot);
+//
+//            }else {
+//
+//                itemStack = playerInventory.getItem(value);
+//
+//            }
 
             if(itemStack != null) {
 
@@ -133,15 +135,15 @@ public class PlayerState{
 
     private void savePlayerState() {
 
-        ItemLoreToMate.addPlayerStates(player.getName(), this);
+        ItemLoreToMate.addPlayerStates(livingEntity.getUniqueId(), this);
 
     }
 
     private void setPlayerStateFromLore() {
 
-        PlayerState playerState = ItemLoreToMate.getPlayerStates().get(player.getName());
-        player.setMaxHealth(playerState.getHealth());
-        double newPlayerSpeed = 0.2 + (0.2 * (playerState.getSpeed() / 100));
+        State state = ItemLoreToMate.getPlayerStates().get(livingEntity.getUniqueId());
+        livingEntity.setMaxHealth(state.getHealth());
+        double newPlayerSpeed = 0.2 + (0.2 * (state.getSpeed() / 100));
 
         if(newPlayerSpeed > 1) {
 
@@ -153,32 +155,37 @@ public class PlayerState{
 
         }
 
-        player.setWalkSpeed((float) newPlayerSpeed);
+        if(livingEntity instanceof Player) {
+
+            ((Player)livingEntity).setWalkSpeed((float) newPlayerSpeed);
+
+        }
+
 
     }
 
     public void infoState() {
-        player.sendMessage(ChatColor.BOLD + "" + ChatColor.RED + "========[属性]========");
-        player.sendMessage(ChatColor.GRAY + "=> 玩家: " + ChatColor.YELLOW + player.getName());
-        player.sendMessage(ChatColor.GRAY + "=> 生命值: " + ChatColor.YELLOW + health);
-        player.sendMessage(ChatColor.GRAY + "=> 防御力: " + ChatColor.YELLOW + defense);
-        player.sendMessage(ChatColor.GRAY + "=> 攻击力: " + ChatColor.YELLOW + damage);
-        player.sendMessage(ChatColor.GRAY + "=> 法术强度: " + ChatColor.YELLOW + apDamage);
-        player.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
-        player.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
-        player.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
-        player.sendMessage(ChatColor.GRAY + "=> 攻击恢复: " + ChatColor.YELLOW + damage);
-        player.sendMessage(ChatColor.GRAY + "=> 生命恢复: " + ChatColor.YELLOW + heal);
-        player.sendMessage(ChatColor.GRAY + "=> 速度加成: " + ChatColor.YELLOW + speed + "%");
+        livingEntity.sendMessage(ChatColor.BOLD + "" + ChatColor.RED + "========[属性]========");
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 玩家: " + ChatColor.YELLOW + livingEntity.getName());
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 生命值: " + ChatColor.YELLOW + health);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 防御力: " + ChatColor.YELLOW + defense);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 攻击力: " + ChatColor.YELLOW + damage);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 法术强度: " + ChatColor.YELLOW + apDamage);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 暴击率: " + ChatColor.YELLOW + crit + "%");
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 暴击伤害: " + ChatColor.YELLOW + critDamage + "%");
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 吸血: " + ChatColor.YELLOW + suckBlood + "%");
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 攻击恢复: " + ChatColor.YELLOW + damage);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 生命恢复: " + ChatColor.YELLOW + heal);
+        livingEntity.sendMessage(ChatColor.GRAY + "=> 速度加成: " + ChatColor.YELLOW + speed + "%");
 
     }
 
-    public PlayerState(Player player) {
-        this.player = player;
+    public State(Player player) {
+        this.livingEntity = player;
     }
 
-    public Player getPlayer() {
-        return player;
+    public LivingEntity getLivingEntity() {
+        return livingEntity;
     }
 
     public double getDamage() {

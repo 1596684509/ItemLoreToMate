@@ -13,23 +13,16 @@ import xiao_student.itemloretomate.Util.EventTimer;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
-public class TextSkill extends Skill implements Skillable, CDable {
+public class TestSkill extends Skill implements Skillable, CDable {
 
-    public  static HashMap<String, EventTimer> skillCdListeners = new HashMap<>();
     public static final String SKILL_NAME = "测试用技能";
 
-    @Override
-    public void createCdListener() {
+    public TestSkill() {
 
-        super.createCDListeners(skillCdListeners);
-
-    }
-
-    @Override
-    public void deleteCdListener() {
-
-        super.deleteCDListeners(skillCdListeners);
+        setSkillCdListeners(new HashMap<>());
+        setSkillCd(5);
 
     }
 
@@ -51,7 +44,7 @@ public class TextSkill extends Skill implements Skillable, CDable {
                 if (entity instanceof LivingEntity) {
 
 
-                    ((LivingEntity) entity).damage(playerState.getDamage());
+                    ((LivingEntity) entity).damage(state.getDamage());
                     player.sendMessage(ChatColor.YELLOW + "发动技能对附近的" + entity.getName() + "造成" + ((LivingEntity) entity).getLastDamage() + "伤害");
 
                 }
@@ -76,8 +69,4 @@ public class TextSkill extends Skill implements Skillable, CDable {
         return super.equal(SKILL_NAME, EquipmentSlot.HAND);
     }
 
-    @Override
-    public HashMap getCdListeners() {
-        return skillCdListeners;
-    }
 }

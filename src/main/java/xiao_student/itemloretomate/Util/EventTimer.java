@@ -5,6 +5,11 @@ import xiao_student.itemloretomate.MyEvent.TimerEventAble;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * スキル時間計算
+ * もし listener は null だったら　CD計算
+ * じゃなかったら　buff　の存在時間を計算
+ */
 public class EventTimer {
 
     private int timer;
@@ -54,7 +59,7 @@ public class EventTimer {
 
                 if(listener != null && !isTimerIsOver()) {
 
-                    listener.onEvent();
+                    listener.run();
 
                 }
 

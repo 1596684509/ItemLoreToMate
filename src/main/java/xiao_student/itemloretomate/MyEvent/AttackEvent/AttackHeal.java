@@ -18,7 +18,7 @@ public class AttackHeal extends MyEventClass implements MyEvent {
     @Override
     public void run() {
 
-        double heal = playerState.getAttackHeal();
+        double heal = state.getAttackHeal();
 
         if((player.getHealth() + heal) >= player.getMaxHealth()) {
 

@@ -5,11 +5,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xiao_student.itemloretomate.Listener.*;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public final class ItemLoreToMate extends JavaPlugin {
 
     private static ItemLoreToMate instance;
-    private static HashMap<String, PlayerState> playerStates;
+    private static HashMap<UUID, State> playerStates;
 
     @Override
     public void onEnable() {
@@ -18,12 +19,12 @@ public final class ItemLoreToMate extends JavaPlugin {
         playerStates = new HashMap<>();
         for (Player onlinePlayer : getServer().getOnlinePlayers()) {
 
-            PlayerState playerState = new PlayerState(onlinePlayer);
-            playerState.setPlayerState(onlinePlayer.getInventory().getHeldItemSlot());
+            State state = new State(onlinePlayer);
+            state.setPlayerState();
 
         }
         getServer().getPluginManager().registerEvents(new OnPlayerCloseInventory(), this);
-        getServer().getPluginManager().registerEvents(new OnAttack(), this);
+        getServer().getPluginManager().registerEvents(new OnDamageByEntity(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerSwapHandItems(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerItemHeld(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerJoin(), this);
@@ -39,13 +40,13 @@ public final class ItemLoreToMate extends JavaPlugin {
 
     }
 
-    public static void addPlayerStates(String name, PlayerState state) {
+    public static void addPlayerStates(UUID uuid, State state) {
 
-        playerStates.put(name, state);
+        playerStates.put(uuid, state);
 
     }
 
-    public static HashMap<String, PlayerState> getPlayerStates() {
+    public static HashMap<UUID, State> getPlayerStates() {
         return playerStates;
     }
 

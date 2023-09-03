@@ -7,22 +7,25 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.meta.ItemMeta;
 import xiao_student.itemloretomate.ItemLoreToMate;
-import xiao_student.itemloretomate.Listener.OnRightClick;
-import xiao_student.itemloretomate.PlayerState;
+import xiao_student.itemloretomate.State;
 import xiao_student.itemloretomate.Util.EventTimer;
 import xiao_student.itemloretomate.Util.Tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Skill {
 
     protected LivingEntity player;
-    protected PlayerState playerState;
+    protected State state;
     protected PlayerInteractEvent playerInteractEvent;
     protected EntityDamageByEntityEvent entityDamageByEntityEvent;
     private int skillCd;
     private EventTimer timer;
+
+    private HashMap<UUID, EventTimer> skillCdListeners;
+
 
     protected void setPlayerInteractEvent(PlayerInteractEvent playerInteractEvent) {
 
@@ -39,7 +42,7 @@ public class Skill {
     private void setPlayerData(Player player) {
 
         this.player = player;
-        playerState = ItemLoreToMate.getPlayerStates().get(player.getName());
+        state = ItemLoreToMate.getPlayerStates().get(player.getUniqueId());
 
     }
 
@@ -79,38 +82,38 @@ public class Skill {
 
     }
 
-    protected void createCDListeners(HashMap<String, EventTimer> skillCdListeners) {
+    public void createCdListener() {
 
-        if(skillCdListeners.containsKey(player.getName())) {
+        if(skillCdListeners.containsKey(player.getUniqueId())) {
 
-            if(skillCdListeners.get(player.getName()) == null) {
+            if(skillCdListeners.get(player.getUniqueId()) == null) {
 
                 EventTimer eventTimer = new EventTimer(null);
-                eventTimer.setTimer(5);
+                eventTimer.setTimer(skillCd);
                 setTimer(eventTimer);
 
-                skillCdListeners.put(player.getName(), getTimer());
+                skillCdListeners.put(player.getUniqueId(), getTimer());
 
             }
 
         }else {
 
             EventTimer eventTimer = new EventTimer(null);
-            eventTimer.setTimer(5);
+            eventTimer.setTimer(skillCd);
             setTimer(eventTimer);
-            skillCdListeners.put(player.getName(), getTimer());
+            skillCdListeners.put(player.getUniqueId(), getTimer());
 
         }
 
     }
 
-    protected void deleteCDListeners(HashMap<String, EventTimer> skillCdListeners) {
+    public void deleteCdListener() {
 
-        if(skillCdListeners.containsKey(player.getName())) {
+        if(skillCdListeners.containsKey(player.getUniqueId())) {
 
-            if(skillCdListeners.get(player.getName()) != null) {
+            if(skillCdListeners.get(player.getUniqueId()) != null) {
 
-                skillCdListeners.remove(player.getName());
+                skillCdListeners.remove(player.getUniqueId());
 
             }
 
@@ -118,4 +121,11 @@ public class Skill {
 
     }
 
+    public HashMap<UUID, EventTimer> getCdListeners() {
+        return skillCdListeners;
+    }
+
+    public void setSkillCdListeners(HashMap<UUID, EventTimer> skillCdListeners) {
+        this.skillCdListeners = skillCdListeners;
+    }
 }

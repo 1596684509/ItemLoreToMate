@@ -18,7 +18,7 @@ public class NaShiZhiHun extends Skill implements Skillable {
     @Override
     public void run() {
 
-        double plusDamage = playerState.getApDamage() * 0.35;
+        double plusDamage = state.getApDamage() * 0.35;
         LivingEntity target = (LivingEntity) entityDamageByEntityEvent.getEntity();
         target.damage(plusDamage);
         player.sendMessage(ChatColor.BLUE + "你对" + target.getName() + "造成了" + plusDamage + "点额外伤害");

@@ -21,7 +21,7 @@ public class HealEvent extends MyEventClass implements MyEvent {
     @Override
     public void run() {
 
-        if(playerState != null) {
+        if(state != null) {
 
             if(healEventTimer == null) {
 

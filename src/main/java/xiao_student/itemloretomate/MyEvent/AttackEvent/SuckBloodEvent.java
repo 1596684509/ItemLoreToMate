@@ -22,7 +22,7 @@ public class SuckBloodEvent extends MyEventClass implements MyEvent {
 
         double damage = entityDamageByEntityEvent.getDamage();
 
-        double heal = damage * (playerState.getSuckBlood() / 100);
+        double heal = damage * (state.getSuckBlood() / 100);
         if((player.getHealth() + heal) >= player.getMaxHealth()) {
 
             heal = player.getMaxHealth() - player.getHealth();

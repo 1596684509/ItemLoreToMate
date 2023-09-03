@@ -5,6 +5,7 @@ import org.bukkit.event.Event;
 import xiao_student.itemloretomate.Util.EventTimer;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public interface Skillable {
 
@@ -17,6 +18,6 @@ public interface Skillable {
 
     boolean equal();
 
-    HashMap<String, EventTimer> getCdListeners();
+    HashMap<UUID, EventTimer> getCdListeners();
 
 }
